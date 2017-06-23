@@ -1,0 +1,11 @@
+server:
+  port: 8282
+
+#indexService:
+#  rest:
+#   enabled: true
+stubrunner:
+  idsToServiceIds:
+    trade-service: trade-service
+  ids: 'com.example.spring.cloud:trade-service:+:stubs'
+  repositoryRoot: https://oss.sonatype.org/content/repositories/snapshots
