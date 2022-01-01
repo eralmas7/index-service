@@ -3,20 +3,28 @@ package com.example.index.services;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
-import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import brave.sampler.Sampler;
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 
 @SpringBootApplication
 @EnableEurekaClient 
 @EnableFeignClients
-@EnableCircuitBreaker
+@CircuitBreaker(name = "BACKEND", fallbackMethod = "ParticipantsClientFallback")
+@RateLimiter(name = "BACKEND")
+@Bulkhead(name = "BACKEND")
+@Retry(name = "BACKEND", fallbackMethod = "ParticipantsClientFallback")
+@TimeLimiter(name = "BACKEND")
 public class IndicesApplication {
 
 	@Bean
@@ -54,9 +62,9 @@ public class IndicesApplication {
 
 @Component
 @Profile("!test")
-class Sampler {
+class ProdSampler {
 	@Bean
-	public AlwaysSampler defaultSampler() {
-		return new AlwaysSampler();
+	public Sampler defaultSampler() {
+		return Sampler.ALWAYS_SAMPLE;
 	}
 }

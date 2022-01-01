@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import com.example.index.services.DefaultIndexService;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doReturn;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DefaultIndexServiceTest {
 
 	@Mock
@@ -24,7 +23,7 @@ public class DefaultIndexServiceTest {
 	private List<IndexWithTradeInfo> indexWithTradeInfoList;
 	private List<TradeInfo> tradeInfoList;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		this.indices = new ArrayList<>();
 		this.indexWithTradeInfoList = new ArrayList<>();

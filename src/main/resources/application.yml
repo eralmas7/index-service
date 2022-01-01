@@ -1,11 +1,26 @@
 server:
   port: 8282
 
-#indexService:
-#  rest:
-#   enabled: true
+indexService:
+  rest:
+   enabled: true
+index-service:
+  rest:
+   enabled: true
 stubrunner:
   idsToServiceIds:
     trade-service: trade-service
   ids: 'com.example.spring.cloud:trade-service:+:stubs'
   repositoryRoot: https://oss.sonatype.org/content/repositories/snapshots
+spring:
+  application:
+    name: index-service
+  config:
+    import: "optional:configserver:"
+eureka:
+    client:
+        fetch-registry: true
+EUREKA_PORT_8761_TCP_ADDR: localhost
+logging:
+  level:
+    org.springframework: DEBUG

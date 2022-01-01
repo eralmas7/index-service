@@ -1,15 +1,17 @@
 package com.example.index.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.junit.Assert.assertEquals;
 
 public class IndicesApplicationTestBase {
 
@@ -25,7 +27,7 @@ public class IndicesApplicationTestBase {
 		System.setProperty("spring.cloud.config.failFast", "false");
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		this.tradeInfoList = new ArrayList<>();
 		tradeInfoList.add(new TradeInfo("Index001", "trade001", "desk001", 1000000, getDateAfter(52*7), getDateAfter(0), 18273.93));
@@ -37,7 +39,7 @@ public class IndicesApplicationTestBase {
 		return Date.from(LocalDate.now().plusYears(weeks).atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		this.tradeInfoList = null;
 	}
