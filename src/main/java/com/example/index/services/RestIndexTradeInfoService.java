@@ -4,13 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.web.client.RestTemplate;
 
 public class RestIndexTradeInfoService implements IndexTradeInfoService {
 
 	@Autowired
-	@LoadBalanced
+//	@LoadBalanced
 	private RestTemplate rest;
 
 	@Override

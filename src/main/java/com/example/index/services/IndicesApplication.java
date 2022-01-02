@@ -3,9 +3,9 @@ package com.example.index.services;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,8 @@ import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 
 @SpringBootApplication
 @EnableEurekaClient 
-@EnableFeignClients
+@EnableDiscoveryClient
+//@EnableFeignClients
 @CircuitBreaker(name = "BACKEND", fallbackMethod = "participantsClientFallback")
 @RateLimiter(name = "BACKEND")
 @Bulkhead(name = "BACKEND")
@@ -33,13 +34,13 @@ public class IndicesApplication {
 	}
 
 	@Bean
-	@ConditionalOnProperty(name="indexService.rest.enabled", havingValue = "false", matchIfMissing = true)
+	@ConditionalOnProperty(name="index-service.rest.enabled", havingValue = "false", matchIfMissing = true)
 	public IndexTradeInfoService feignParticipantsService() {
 		return new FeignIndexTradeInfoService();
 	}
 
 	@Bean
-	@ConditionalOnProperty(name="indexService.rest.enabled", havingValue = "true", matchIfMissing = false)
+	@ConditionalOnProperty(name="index-service.rest.enabled", havingValue = "true", matchIfMissing = false)
 	public IndexTradeInfoService restParticipantsService() {
 		return new RestIndexTradeInfoService();
 	}

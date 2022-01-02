@@ -1,25 +1,24 @@
 server:
   port: 8282
+logging:
+  level:
+    org.springframework: DEBUG
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,beans
 
-indexService:
-  rest:
-   enabled: true
 index-service:
   rest:
-   enabled: true
+    enabled: true
 stubrunner:
   idsToServiceIds:
     trade-service: trade-service
   ids: 'com.example.spring.cloud:trade-service:+:stubs'
-  repositoryRoot: https://oss.sonatype.org/content/repositories/snapshots
 spring:
   application:
     name: index-service
-  config:
-    uri:  ${vcap.services.config-server.credentials.uri:http://cloud-config:8888}
-    failFast: true
 eureka:
     client:
-    instance:
-        hostname: ${vcap.services.eureka-service.credentials.uri:http://eureka-server:8761}/eureka/
-EUREKA_PORT_8761_TCP_ADDR: ${vcap.services.eureka-service.credentials.uri:localhost}
+      enabled: true
