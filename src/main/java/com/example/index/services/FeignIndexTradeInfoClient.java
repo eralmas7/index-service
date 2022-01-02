@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name="index-service", fallback = IndexTradeInfoClientFallback.class)
+@FeignClient(name="indexService", fallback = IndexTradeInfoClientFallback.class)
 public interface FeignIndexTradeInfoClient {
 	@GetMapping(value="/index/{indexId}")
 	List<TradeInfo> getIndexTradeInfoFeignClient(@PathVariable("indexId") String indexId);
