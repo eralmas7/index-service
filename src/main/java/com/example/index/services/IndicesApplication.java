@@ -20,15 +20,15 @@ import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 @SpringBootApplication
 @EnableEurekaClient 
 @EnableFeignClients
-@CircuitBreaker(name = "BACKEND", fallbackMethod = "ParticipantsClientFallback")
+@CircuitBreaker(name = "BACKEND", fallbackMethod = "participantsClientFallback")
 @RateLimiter(name = "BACKEND")
 @Bulkhead(name = "BACKEND")
-@Retry(name = "BACKEND", fallbackMethod = "ParticipantsClientFallback")
+@Retry(name = "BACKEND", fallbackMethod = "participantsClientFallback")
 @TimeLimiter(name = "BACKEND")
 public class IndicesApplication {
 
 	@Bean
-	public IndexTradeInfoClientFallback ParticipantsClientFallback() {
+	public IndexTradeInfoClientFallback participantsClientFallback() {
 		return new IndexTradeInfoClientFallback();
 	}
 

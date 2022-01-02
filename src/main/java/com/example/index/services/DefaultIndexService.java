@@ -25,7 +25,7 @@ public class DefaultIndexService implements IndexService {
 
 	@Override
 	public List<IndexWithTradeInfo> getAllIndicesWithTradeInfo() {
-		List<IndexWithTradeInfo> indexWithTradeInfoList = new ArrayList<IndexWithTradeInfo>();
+		List<IndexWithTradeInfo> indexWithTradeInfoList = new ArrayList<>();
 		List<TradeInfo> tradeInfoList = indexTradeInfoService.getAllTradeInfo();
 		for(Index index : indices) {
 			indexWithTradeInfoList.add(new IndexWithTradeInfo(index, tradeInfoList.stream().filter(

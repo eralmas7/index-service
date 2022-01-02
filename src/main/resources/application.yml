@@ -16,11 +16,11 @@ spring:
   application:
     name: index-service
   config:
-    import: "optional:configserver:"
+    uri:  ${vcap.services.config-server.credentials.uri:http://cloud-config:8888}
+    failFast: true
 eureka:
     client:
         fetch-registry: true
-EUREKA_PORT_8761_TCP_ADDR: localhost
 logging:
   level:
     org.springframework: DEBUG
